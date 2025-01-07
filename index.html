@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nershoof</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    </head>
+    <style>
+:root {
+    --background-color: #f5f5f5;
+    --text-color: #000;
+    --card-background: white;
+    --card-hover: #e6e6e6;
+    --title-color: #333;  /* Warna teks judul default */
+    --span-color: #000;  /* Warna teks span default (hitam) */
+    --description-color: #555; /* Warna deskripsi default */
+}
+
+
+[data-theme="dark"] {
+    --background-color: #1e1e1e;
+    --text-color: #fff;
+    --card-background: #2b2b2b;
+    --card-hover: #3b3b3b;
+    --title-color: #fff;  /* Warna teks judul menjadi putih saat mode gelap */
+    --span-color: #fff;  /* Warna teks span menjadi putih saat mode gelap */
+    --description-color: #ccc; /* Warna deskripsi menjadi abu-abu terang saat mode gelap */
+}
+
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background: var(--background-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.header {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.main-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--title-color); /* Warna judul mengikuti mode */
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.main-description {
+    font-size: 18px;
+    color: var(--description-color); /* Menggunakan variabel warna untuk deskripsi */
+    text-align: center;
+    margin-top: 10px;
+    padding: 0 20px;
+    max-width: 800px;
+    line-height: 1.6;
+}
+
+.controls {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-box {
+    flex: 1;
+    margin-right: 10px;
+    position: relative;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.theme-icon {
+    font-size: 35px; 
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.theme-icon:hover {
+    transform: scale(1.1);
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: var(--card-background);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+
+.card-description span {
+    color: var(--span-color); /* Menggunakan variabel warna teks span */
+}
+
+.card-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    background-color: var(--card-hover);
+}
+
+.card img {
+    width: 100%;
+    height: 100; /* Menyesuaikan ukuran gambar */
+    object-fit: cover;
+}
+
+.card-description {
+    background: var(--overlay-background);
+    color: white;
+    padding: 12px;
+    text-align: center;
+    font-size: 16px;
+    flex-grow: 1; /* Agar deskripsi selalu di bawah gambar */
+}
+
+.card-description span {
+    display: block;
+    font-weight: bold;
+}
+
+.card a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 12px;
+    text-decoration: none;
+    color: inherit;
+    text-align: center;
+}
+
+.card a:hover {
+    color: white;
+}
+
+.controls {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    align-items: center;
+}
+
+.controls {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-start; /* Atur elemen dari kiri */
+    width: 100%;
+    max-width: 1200px;
+    align-items: center;
+    gap: 10px; /* Jarak antara profil dan search box */
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--text-color);
+    background-color: var(--background-color);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.profile:hover {
+    transform: scale(1.1);
+}
+
+.profile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.search-box {
+    flex: 1;
+    position: relative;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+    </style>
+<body>
+    <div class="main-title">
+        @nershoof
+        <div class="main-description">
+           Disini dijamin ORI 
+        </div>
+    </div>
+    
+    
+
+    <div class="controls">
+            <div class="profile">
+                <a href="https://www.tiktok.com/@nershoof?_t=ZS-8ss7ZSdO9lH&_r=1">
+        <img src="logokucing.jpg" alt="Profile" class="profile-image">
+    </a>
+</div>
+    <div class="search-box">
+            <input type="text" id="search" placeholder="Search products...">
+        </div>
+        <i id="themeToggle" class="fas fa-moon theme-icon"></i>
+    </div>
+
+
+    <div class="container" id="productContainer">
+        <!-- Product Cards -->
+        <div class="card" data-name="Jayrosee Rouge">
+            <a href="https://s.shopee.co.id/40QhQgjvMG" target="_blank" class="card-link">
+                <img src="https://th.bing.com/th/id/OIP.hp-WFSxf7k4X-gFaJziQpwAAAA?rs=1&pid=ImgDetMain" alt="Product 1">
+                <div class="card-description">
+                    <span>Jayrosee Rouge 30ML </span>
+                </div>
+            </a>
+        </div>
+        
+        
+        <div class="card" data-name="Spectre Ghost">
+            <a href="https://s.shopee.co.id/40QhQgjvMG" target="_blank" class="card-link">
+                <img src="https://down-id.img.susercontent.com/file/sg-11134201-7r98r-llbnkqkc012tad" alt="Product 2">
+                <div class="card-description">
+                    <span>French Avenue Spectre Ghost 80ML</span>
+                </div>
+            </a>
+        </div>
+
+        <div class="card" data-name="Bonfier Vanilla">
+            <a href="https://s.shopee.co.id/4L3Y3NHvpy" target="_blank" class="card-link">
+                <img src="https://th.bing.com/th/id/OIP.S5p9U_dL68sCExXWljxTgAHaHa?rs=1&pid=ImgDetMain" alt="Product 3">
+                <div class="card-description">
+                    <span>Mykonos Bonfire Vanilla 50ML</span>
+                </div>
+            </a>
+        </div>
+        
+        <div class="card" data-name="Mimo VIP">
+            <a href="https://s.shopee.co.id/1VjMgZnLgO" target="_blank" class="card-link">
+                <img src="https://down-id.img.susercontent.com/file/sg-11134201-7rd4n-lwttcb92fuzge7.webp" alt="Product 4">
+                <div class="card-description">
+                    <span>Mimo Vip Intense 100ML</span>
+                </div>
+            </a>
+        </div>
+
+        <div class="card" data-name="Nautica Voyage">
+            <a href="https://s.shopee.co.id/5psLrWPBwY" target="_blank" class="card-link">
+                <img src="https://th.bing.com/th/id/OIP.BXVCtHyeg2HPzbvtvCGl0gAAAA?rs=1&pid=ImgDetMain" alt="Product 5">
+                <div class="card-description">
+                    <span>Nautica Voyage Men 100ML</span>
+                </div>
+            </a>
+        </div>
+
+            <div class="card" data-name="F LE p">
+                <a href="https://s.shopee.co.id/BDz7FHLgy" target="_blank" class="card-link">
+                    <img src="https://down-id.img.susercontent.com/file/id-11134207-7r992-lqolbgm6elgebf.webp" alt="Product 6">
+                    <div class="card-description">
+                        <span>Perfume F LE perfume 100ML</span>
+                    </div>
+                </a>
+            </div>
+
+                <div class="card" data-name="ELVICTO 10PM">
+                    <a href="https://s.shopee.co.id/4VMyHLf00R" target="_blank" class="card-link">
+                        <img src="https://down-id.img.susercontent.com/file/id-11134207-7r98q-lt6cr3vqgnjb3f.webp" alt="Product 7">
+                        <div class="card-description">
+                            <span>ELVICTO 10PM EXTRAIT 35ML </span>
+                        </div>
+                    </a>
+                </div>
+
+                    <div class="card" data-name="ELVICTO 10PM">
+                        <a href="https://s.shopee.co.id/10n66wEC1b" target="_blank" class="card-link">
+                            <img src="https://down-id.img.susercontent.com/file/id-11134201-23030-9mdude3kgaovc7.webp" alt="Product 8">
+                            <div class="card-description">
+                                <span>ELVICTO ESCOBAR 35ML </span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="card" data-name="French Avenue Glorious Oud Royal Blanc ">
+                        <a href="https://s.shopee.co.id/5VFVTit0Hw" target="_blank" class="card-link">
+                            <img src="https://down-id.img.susercontent.com/file/id-11134207-7rasa-m2vqfly25hdrb5.webp" alt="Product 9">
+                            <div class="card-description">
+                                <span>French Avenue Glorious Oud Royal Blanc 80ML </span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="card" data-name="French Avenue EDB">
+                        <a href="https://s.shopee.co.id/5Acf5A1eci" target="_blank" class="card-link">
+                            <img src="https://down-id.img.susercontent.com/file/id-11134207-7r98z-lw2gdudstf729e.webp" alt="Product 10">
+                            <div class="card-description">
+                                <span>French Avenue Essence De Blanc EDP 100 ml </span>
+                            </div>
+                        </a>
+                    </div>
+    <script>
+        // Toggle Dark Mode with Icon
+        const themeToggle = document.getElementById('themeToggle');
+const body = document.body;
+
+themeToggle.addEventListener('click', () => {
+    if (body.hasAttribute('data-theme')) {
+        // Hapus atribut dark mode, ubah ikon ke moon
+        body.removeAttribute('data-theme');
+        themeToggle.classList.remove('fa-sun');
+        themeToggle.classList.add('fa-moon');
+    } else {
+        // Tambahkan atribut dark mode, ubah ikon ke sun
+        body.setAttribute('data-theme', 'dark');
+        themeToggle.classList.remove('fa-moon');
+        themeToggle.classList.add('fa-sun');
+    }
+});
+
+
+
+        // Search Functionality
+        const searchInput = document.getElementById('search');
+        const productContainer = document.getElementById('productContainer');
+        const cards = productContainer.getElementsByClassName('card');
+
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase();
+            Array.from(cards).forEach(card => {
+                const productName = card.getAttribute('data-name').toLowerCase();
+                if (productName.includes(query)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
